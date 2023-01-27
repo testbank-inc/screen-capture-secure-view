@@ -2,9 +2,9 @@
   "name": "@testbank-inc/screen-capture-secure-view",
   "version": "0.1.3",
   "description": "iOS screen capture secure view component for React Native",
-  "main": "index",
+  "main": "lib/index.js",
   "module": "index",
-  "types": "index.d.ts",
+  "types": "lib/index.d.ts",
   "source": "index",
   "keywords": [
     "react-native",
