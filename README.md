@@ -6,6 +6,7 @@ iOS screen capture secure view control module for React Native
 
 ```sh
 npm install @testbank-inc/screen-capture-secure-view
+yarn add @testbank-inc/screen-capture-secure-view
 ```
 
 ## Usage
