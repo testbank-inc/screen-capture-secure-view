@@ -8,7 +8,7 @@ npm install @testbank-inc/screen-capture-secure-view
 yarn add @testbank-inc/screen-capture-secure-view
 ```
 
-## Usage
+## 
 
 ``useScreenCaptureSecureView``로부터 세 개의 메서드를 불러올 수 있으며 다음과 같이 사용할 수 있습니다.
 
