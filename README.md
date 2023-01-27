@@ -1,6 +1,6 @@
 # @testbank-inc/screen-capture-secure-view
 
-iOS screen capture secure view component for React Native
+iOS screen capture secure view control module for React Native
 
 ## Installation
 
@@ -11,16 +11,7 @@ npm install @testbank-inc/screen-capture-secure-view
 ## Usage
 
 ```js
-import { ScreenCaptureSecureViewView } from "@testbank-inc/screen-capture-secure-view";
-
-// ...
-
-<ScreenCaptureSecureViewView color="tomato" />
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
 ## License
 
