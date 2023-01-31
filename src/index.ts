@@ -1,38 +1,4 @@
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import useScreenCaptureSecure from './useScreenCaptureSecure';
+import ScreenCaptureSecureView from './ScreenCaptureSecureView';
 
-export type TScreenCaptureListenerCallback = () => void;
-
-const { IOSScreenCaptureEventEmitter, IOSScreenCaptureSecureViewController: secureViewController } = NativeModules;
-const eventEmitter = new NativeEventEmitter(IOSScreenCaptureEventEmitter);
-
-function useScreenCaptureSecureView () {
-  const addScreenCaptureListener = (callback: TScreenCaptureListenerCallback) => {
-    if (typeof callback !== 'function') {
-      console.error('ScreenCaptureSecureError : addScreenCaptureListener requires valid callback function.');
-      return;
-    }
-
-    return eventEmitter.addListener('userDidTakeScreenshot', callback);
-  };
-
-  const isSecure = async () => {
-    try {
-      const res = await secureViewController.getIsSecure();
-      return res;
-    } catch (e: any) {
-      console.log(e.message, e.code);
-    }
-  };
-
-  const enableSecureView = () => {
-    secureViewController.enableSecure();
-  };
-
-  const disableSecureView = () => {
-    secureViewController.disableSecure();
-  };
-
-  return { addScreenCaptureListener, isSecure, enableSecureView, disableSecureView };
-}
-
-export default useScreenCaptureSecureView;
+export { useScreenCaptureSecure, ScreenCaptureSecureView };
