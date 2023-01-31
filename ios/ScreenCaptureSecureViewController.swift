@@ -10,6 +10,7 @@
 class IOSScreenCaptureSecureViewController: RCTViewManager {
   // declare secureField variable
   private var field = UITextField(frame: CGRect.zero)
+  private var isSecure = false
   
   // initialize class on the main thread
   override static func requiresMainQueueSetup() -> Bool {
@@ -40,15 +41,17 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
   
   func enableSecureView(_ field: UITextField) {
     field.isSecureTextEntry = true
+    isSecure = true
   }
   
   func disableSecureView(_ field: UITextField) {
     field.isSecureTextEntry = false
+    isSecure = false
   }
   
   //MARK: - public methods
-    @objc func getIsSecure() -> Bool {
-    return field.isSecureTextEntry
+@objc func getIsSecure() -> Bool {
+    return isSecure
   }
     
   @objc func enableSecure() {
