@@ -16,8 +16,9 @@ yarn add @testbank-inc/screen-capture-secure-view
 ``useScreenCaptureSecureView``로부터 세 개의 메서드를 불러올 수 있으며 다음과 같이 사용할 수 있습니다.
 
 1. ``addScreenCaptureListener`` : callback을 넘겨주어 스크린샷이 일어났을 때 행동 작성
-2. ``setSecure`` : 현재 view를 캡처 불가능 view로 설정
-3. ``resetSecure`` : 현재 view를 캡처 가능 view로 설정
+2. ``isSecure`` : promise 형태로 현재 secure 값이 true인지 false인지 return
+2. ``enableSecure`` : 현재 view를 캡처 불가능 view로 설정
+3. ``disableSecure`` : 현재 view를 캡처 가능 view로 설정
 
 ```tsx
 import React from 'react';
@@ -30,7 +31,7 @@ type TScreenCaptureSecureViewProps = {
 } & ViewProps;
 
 export function ScreenCaptureSecureView({ ...props }: TScreenCaptureSecureViewProps) {
-  const { addScreenCaptureListener, setSecureView, resetSecureView } = useScreenCaptureSecureView();
+  const { addScreenCaptureListener, isSecure, enableSecureView, disableSecureView } = useScreenCaptureSecureView();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -39,17 +40,31 @@ export function ScreenCaptureSecureView({ ...props }: TScreenCaptureSecureViewPr
       });
 
       return () => {
-        resetSecureView();
+        handleOutFocused();
         subscription?.remove();
       };
     }, []),
   );
 
+  const handleOnLayout = async () => {
+    const secureVal = await isSecure();
+    if (!secureVal) {
+      enableSecureView();
+    }
+  };
+
+  const handleOutFocused = async () => {
+    const secureVal = await isSecure();
+    if (secureVal) {
+      disableSecureView();
+    }
+  };
+
   return (
-    <View onLayout={setSecureView} style={styles.secureView}>
-    {props.children}
+    <View onLayout={handleOnLayout} style={styles.secureView}>
+      {props.children}
     </View>
-);
+  );
 }
 
 const styles = StyleSheet.create({
