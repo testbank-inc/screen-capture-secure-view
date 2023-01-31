@@ -16,7 +16,7 @@ function useScreenCaptureSecureView () {
   };
 
   const isSecure = () => {
-    return secureViewController.getIsSecure();
+    return secureViewController.getIsSecure;
   }
 
   const enableSecureView = () => {
