@@ -20,7 +20,7 @@
 @end
 
 @interface RCT_EXTERN_MODULE(IOSScreenCaptureSecureViewController, RCTViewManager)
-RCT_EXTERN_METHOD(getIsSecure)
+RCT_EXTERN_METHOD(getIsSecure:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(enableSecure)
 RCT_EXTERN_METHOD(disableSecure)
 @end

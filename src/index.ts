@@ -15,9 +15,14 @@ function useScreenCaptureSecureView () {
     return eventEmitter.addListener('userDidTakeScreenshot', callback);
   };
 
-  const isSecure = () => {
-    return secureViewController.getIsSecure();
-  }
+  const isSecure = async () => {
+    try {
+      const res = await secureViewController.getIsSecure();
+      return res;
+    } catch (e: any) {
+      console.log(e.message, e.code);
+    }
+  };
 
   const enableSecureView = () => {
     secureViewController.enableSecure();
