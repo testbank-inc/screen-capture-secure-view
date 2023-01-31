@@ -1,5 +1,8 @@
 # Screen Capture Secure View
 
+
+React Native에서 사용하기 위한 iOS 캡처 방지
+
 ## 설치
 
 ```sh

@@ -15,15 +15,19 @@ function useScreenCaptureSecureView () {
     return eventEmitter.addListener('userDidTakeScreenshot', callback);
   };
 
-  const setSecureView = () => {
-    secureViewController.setSecure();
+  const isSecure = () => {
+    return secureViewController.isSecure();
+  }
+
+  const enableSecureView = () => {
+    secureViewController.enableSecure();
   };
 
-  const resetSecureView = () => {
-    secureViewController.resetSecure();
+  const disableSecureView = () => {
+    secureViewController.disableSecure();
   };
 
-  return { addScreenCaptureListener, setSecureView, resetSecureView };
+  return { addScreenCaptureListener, isSecure, enableSecureView, disableSecureView };
 }
 
 export default useScreenCaptureSecureView;

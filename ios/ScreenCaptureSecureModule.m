@@ -20,6 +20,7 @@
 @end
 
 @interface RCT_EXTERN_MODULE(IOSScreenCaptureSecureViewController, RCTViewManager)
-RCT_EXTERN_METHOD(setSecure)
-RCT_EXTERN_METHOD(resetSecure)
+RCT_EXTERN_METHOD(isSecure)
+RCT_EXTERN_METHOD(enableSecure)
+RCT_EXTERN_METHOD(disableSecure)
 @end

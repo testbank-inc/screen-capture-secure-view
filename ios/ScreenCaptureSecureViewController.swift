@@ -47,7 +47,11 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
   }
   
   //MARK: - public methods
-  @objc func setSecure() {
+  @objc func isSecure() {
+    return field.isSecureTextEntry
+  }
+    
+  @objc func enableSecure() {
     let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
     let rootView = keyWindow?.rootViewController?.view
       
@@ -56,7 +60,7 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
     enableSecureView(field)
   }
   
-  @objc func resetSecure() {
+  @objc func disableSecure() {
     disableSecureView(field)
   }
 }
