@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@testbank-inc/screen-capture-secure-view": ["./index"]
+      "@testbank-inc/screen-capture-secure-view": ["src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -27,7 +27,7 @@
 
     "allowJs": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": ""
+//    "emitDeclarationOnly": true,
+    "outDir": "lib"
   }
 }
