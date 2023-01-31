@@ -47,7 +47,7 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
   }
   
   //MARK: - public methods
-    @objc func isSecure() -> Bool {
+    @objc func getIsSecure() -> Bool {
     return field.isSecureTextEntry
   }
     

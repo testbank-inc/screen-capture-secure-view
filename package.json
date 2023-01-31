@@ -3,7 +3,7 @@
   "version": "0.2.2",
   "description": "iOS screen capture secure view component for React Native",
   "main": "lib/index.js",
-  "module": "index",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "source": "index",
   "keywords": [
