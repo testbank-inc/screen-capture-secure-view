@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import type { ViewProps } from 'react-native';
+import type { EmitterSubscription, ViewProps } from 'react-native';
 import useScreenCaptureSecure from './useScreenCaptureSecure';
-import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 
 type TScreenCaptureSecureViewProps = {
+  isFocusIn: boolean;
   children?: React.ReactNode;
   screenCaptureListener?: () => void;
   onChangeSecure?: (isSecure: boolean) => void
 } & ViewProps;
 
-function ScreenCaptureSecureView({screenCaptureListener, onChangeSecure, ...props}: TScreenCaptureSecureViewProps) {
+// does not work properly yet...
+function ScreenCaptureSecureView({isFocusIn, screenCaptureListener, onChangeSecure, ...props}: TScreenCaptureSecureViewProps) {
   const {addScreenCaptureListener, getIsSecure, enableSecure, disableSecure} = useScreenCaptureSecure();
 
   const [isSecure, setIsSecure] = useState(false);
@@ -24,31 +25,39 @@ function ScreenCaptureSecureView({screenCaptureListener, onChangeSecure, ...prop
     getInitialSecureVal();
   }, [])
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const subscription = addScreenCaptureListener(() => {
+  useEffect(() => {
+    let subscription: EmitterSubscription | undefined;
+    if(isFocusIn) {
+      subscription = addScreenCaptureListener(() => {
         screenCaptureListener && screenCaptureListener();
       })
+    }
+    else {
+      handleOutFocused();
+    }
+    return () => {
+      subscription?.remove();
+    }
+  }, [isFocusIn, screenCaptureListener]);
 
-      return () => {
-        handleOutFocused();
-        subscription?.remove();
-      }
-    }, [screenCaptureListener]),
-  )
-
-  useFocusEffect(
-    React.useCallback(() => {
-      onChangeSecure && onChangeSecure(isSecure);
-    }, [isSecure, onChangeSecure])
-  )
+  useEffect(() => {
+    if (isFocusIn && onChangeSecure) {
+      onChangeSecure(isSecure);
+    }
+  }, [isFocusIn, isSecure, onChangeSecure]);
 
   const handleOnLayout = async () => {
-    if (!isSecure) enableSecure();
+    if (!isSecure) {
+      await enableSecure();
+      setIsSecure(true);
+    }
   }
 
   const handleOutFocused = async () => {
-    if (isSecure) disableSecure();
+    if (isSecure) {
+      await disableSecure();
+      setIsSecure(false);
+    }
   }
 
   return <View onLayout={handleOnLayout} style={styles.secureView}>
