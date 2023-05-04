@@ -20,8 +20,10 @@ yarn add @testbank-inc/screen-capture-secure-view
 2. ``enableSecure`` : 현재 view를 캡처 불가능 view로 설정
 3. ``disableSecure`` : 현재 view를 캡처 가능 view로 설정
 
+아래와 같이 ``ScreenCaptureSecureView``컴포넌트를 생성하여 보안이 필요한 다른 컴포넌트를 감싸서 캡처 방지 및 녹화 방지를 할 수 있습니다.
 ## 예시
 ```tsx
+// ScreenCaptureSecureView.tsx
 import React from 'react';
 import { Alert, StyleSheet, View, ViewProps } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -77,7 +79,20 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
+```
 
+```tsx
+// [OtherComponent].tsx
+import React from 'react';
+import ScreenCaptureSecureView from "./ScreenCaptureSecureView";
+
+export function OtherComponent() {
+  return (
+    <ScreenCaptureSecureView>
+      {/*  Secured View  */}
+    </ScreenCaptureSecureView>
+  );
+}
 ```
 
 ## License
