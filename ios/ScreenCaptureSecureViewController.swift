@@ -9,7 +9,7 @@
 @objc(IOSScreenCaptureSecureViewController)
 class IOSScreenCaptureSecureViewController: RCTViewManager {
   // declare secureField variable
-  private var field = UITextField(frame: CGRect.zero)
+  private var secureField: UITextField?
   private var isSecure = false
 
   // initialize class on the main thread
@@ -26,17 +26,11 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
 
   //MARK: - secureField methods
   func initSecureTextFieldView() {
-    let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-    field = UITextField(frame: keyWindow?.rootViewController?.view?.frame ?? CGRect.zero)
-
-    field.isSecureTextEntry = false
-    field.isUserInteractionEnabled = false
+      // TODO
   }
 
   func addSecureTextField(to view: UIView!, andField field: UITextField!) {
-    view.addSubview(field)
-    view.layer.superlayer?.addSublayer(field.layer)
-    field.layer.sublayers?.first?.addSublayer(view.layer)
+      // TODO
   }
 
   func enableSecureView(_ field: UITextField) {
@@ -55,15 +49,32 @@ class IOSScreenCaptureSecureViewController: RCTViewManager {
   }
 
   @objc func enableSecure() {
-    let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-    let rootView = keyWindow?.rootViewController?.view
+      DispatchQueue.main.async { [weak self] in
+          guard let self = self else { return }
 
-    initSecureTextFieldView()
-    addSecureTextField(to: rootView?.subviews.last, andField: field)
-    enableSecureView(field)
+      if secureField == nil {
+         secureField = UITextField()
+         secureField?.isUserInteractionEnabled = false
+         secureField?.backgroundColor = UIColor.white
+
+         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+         window.makeKeyAndVisible()
+
+         secureField?.frame = window.bounds
+
+         if let superlayer = window.layer.superlayer {
+               superlayer.addSublayer(secureField!.layer)
+         }
+         if let firstSublayer = self.secureField?.layer.sublayers?.first {
+             firstSublayer.addSublayer(window.layer)
+         }
+      }
+
+      secureField?.isSecureTextEntry = true
+      }
   }
 
   @objc func disableSecure() {
-    disableSecureView(field)
+      secureField?.isSecureTextEntry = false
   }
 }
